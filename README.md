@@ -139,7 +139,7 @@ Install greetings_feature and mycorp_greeting like any other Drupal module and c
 
 * **URL**
 
-  `api/v1/greetings/{id}`
+  `api/v1/greetings/{id}/publish`
 
 * **Method:**  
   `POST`
