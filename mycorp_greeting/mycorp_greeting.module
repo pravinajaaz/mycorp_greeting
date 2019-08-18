@@ -1,0 +1,120 @@
+<?php
+
+/**
+ * @file
+ *  Defines a new service to perform CRUD operations on Greeting
+ */
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function mycorp_greeting_services_resources() {
+  $greeting_resource = array(
+    'greetings' => array(
+      'operations' => array(
+        'retrieve' => array(
+          'help' => t('Return a specific greeting of given id.'),
+          'file' => array('type' => 'inc', 'module' => 'mycorp_greeting', 'name' => 'resources/greeting_resource'),
+          'callback' => '_greeting_resource_retrieve',
+          'args' => array(
+            array(
+              'name' => 'nid',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'int',
+              'description' => 'The nid of the greeting to retrieve',
+            ),
+          ),
+          'access callback' =>  '_greeting_resource_access',
+          'access arguments' => array('view'),
+          'access arguments append' => TRUE,
+        ),
+        'create' => array(
+          'help' => t('Creates a new greeting.'),
+          'file' => array('type' => 'inc', 'module' => 'mycorp_greeting', 'name' => 'resources/greeting_resource'),
+          'callback' => '_greeting_resource_create',
+          'args' => array(
+            array(
+              'name' => 'node',
+              'optional' => FALSE,
+              'source' => 'data',
+              'description' => 'The node data to create',
+              'type' => 'array',
+            ),
+          ),
+          'access callback' =>  '_greeting_resource_access',
+          'access arguments' => array('create'),
+          'access arguments append' => TRUE,
+        ),
+        'update' => array(
+          'help' => t('Updates an existing greeting.'),
+          'file' => array('type' => 'inc', 'module' => 'mycorp_greeting', 'name' => 'resources/greeting_resource'),
+          'callback' => '_greeting_resource_update',
+          'args' => array(
+            array(
+              'name' => 'nid',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'int',
+              'description' => 'The nid of the greeting to update',
+            ),
+            array(
+              'name' => 'node',
+              'optional' => FALSE,
+              'source' => 'data',
+              'description' => 'The greeting data to update',
+              'type' => 'array',
+            ),
+          ),
+          'access callback' => '_greeting_resource_access',
+          'access arguments' => array('update'),
+          'access arguments append' => TRUE,
+        ),
+        'delete' => array(
+          'help' => t('Delete an existing greeting.'),
+          'file' => array('type' => 'inc', 'module' => 'mycorp_greeting', 'name' => 'resources/greeting_resource'),
+          'callback' => '_greeting_resource_delete',
+          'args' => array(
+            array(
+              'name' => 'nid',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'int',
+              'description' => 'The nid of the node to delete',
+            ),
+          ),
+          'access callback' => '_greeting_resource_access',
+          'access arguments' => array('delete'),
+          'access arguments append' => TRUE,
+        ),
+        'index' => array(
+          'help' => t('Return the list of greetings'),
+          'file' => array('type' => 'inc', 'module' => 'mycorp_greeting', 'name' => 'resources/greeting_resource'),
+          'callback' => '_greeting_resource_index',
+          'access arguments' => array('access content'),
+        ),
+      ),
+      'targeted_actions' => array(
+        'publish' => array(
+          'help' => t('Publish/unpublish a greeting of given id'),
+          'file' => array('type' => 'inc', 'module' => 'mycorp_greeting', 'name' => 'resources/greeting_resource'),
+          'callback' => '_greeting_resource_publish',
+          'access callback' => '_greeting_resource_access',
+          'access arguments' => array('update'),
+          'access arguments append' => TRUE,
+          'args' => array(
+            array(
+              'name' => 'nid',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'int',
+              'description' => 'The nid of the greeting to publish or unpublish',
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+  return $greeting_resource;
+}
+

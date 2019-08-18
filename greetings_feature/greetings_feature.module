@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * Code for the greetings feature.
+ */
+
+include_once 'greetings_feature.features.inc';

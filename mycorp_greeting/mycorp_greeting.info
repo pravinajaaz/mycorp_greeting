@@ -1,0 +1,7 @@
+name = Mycorp Greeting
+type = module
+description = Expose greeting data and perform CRUD operations 
+core = 7.x
+package = Mycorp
+dependencies[] = services
+dependencies[] = rest_server
